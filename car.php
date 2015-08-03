@@ -61,6 +61,9 @@ $mercedes = new Car ("Mercedes Benz CLS550", 39900, 2222, "images/mercedes.jpg")
 //$mercedes->setMilage("10.111");
 //$porsche -> setPrice("1.111111");
 //$lexus->setModel(3);
+$max_price = $_GET["price"];
+$max_milage = $_GET["milage"];
+
 
 $cars = array($porsche, $ford, $lexus, $mercedes);
 ?>
@@ -71,6 +74,7 @@ $cars = array($porsche, $ford, $lexus, $mercedes);
 </head>
 <body>
     <h1>Your Car Dealership</h1>
+    <p> Maximum price is <?php echo $max_price ?> </p>
     <ul>
         <?php
             foreach ($cars as $car) {
@@ -78,14 +82,18 @@ $cars = array($porsche, $ford, $lexus, $mercedes);
                 $car_price = $car->getPrice();
                 $car_milage = $car->getMilage();
                 $car_photo = $car->getPhoto();
-                echo "<li> $car_model </li>";
-                echo "<li> <img src='$car_photo'> </li>";
-                echo "<ul>";
-                    echo "<li> $$car_price </li>";
-                    echo "<li> Miles: $car_milage </li>";
-                echo "</ul>";
-                echo "<p>  </p>";
+                if ( $car_price <= $max_price && $car_milage <= $max_milage) {
+                    echo "<li> $car_model </li>";
+                    echo "<li> <img src='$car_photo'> </li>";
+                    echo "<ul>";
+                        echo "<li> $$car_price </li>";
+                        echo "<li> Miles: $car_milage </li>";
+                    echo "</ul>";
+                    echo "<p>  </p>";
+                }
+
             }
+
         ?>
     </ul>
 </body>
