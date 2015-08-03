@@ -3,7 +3,7 @@ class Car
 {
     public $make_model;
     public $price;
-    public $miles;
+    private $miles;
 
     function __construct($model, $cost, $milage=0)
     {
@@ -19,12 +19,16 @@ class Car
         $this->miles = $formatted_milage;
       }
     }
+    function getMilage ()
+    {
+      return $this->miles;
+    }
 }
 $porsche = new Car ("2014 Porche 911", 114991, 7864);
 $ford = new Car ("2011 Ford F450", 55995, 14241);
 $lexus = new Car ("2013 Lexus RX 350", 44700, 2000);
-$mercedes = new Car ("Mercedes Benz CLS550", 39900);
-$mercedes->setMilage("10");
+$mercedes = new Car ("Mercedes Benz CLS550", 39900, 2222);
+$mercedes->setMilage("10.111");
 
 $cars = array($porsche, $ford, $lexus, $mercedes);
 ?>
@@ -38,10 +42,11 @@ $cars = array($porsche, $ford, $lexus, $mercedes);
     <ul>
         <?php
             foreach ($cars as $car) {
+                $car_milage = $car->getMilage();
                 echo "<li> $car->make_model </li>";
                 echo "<ul>";
                     echo "<li> $$car->price </li>";
-                    echo "<li> Miles: $car->miles </li>";
+                    echo "<li> Miles: $$car_milage </li>";
                 echo "</ul>";
             }
         ?>
