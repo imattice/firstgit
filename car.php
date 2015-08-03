@@ -54,6 +54,10 @@ class Car
     }
 
 }
+
+
+
+
 $porsche = new Car ("2014 Porsche 911", 114991.444, 7864,"images/porsche.jpg");
 $ford = new Car ("2011 Ford F450", 55995, 14241, "images/ford.jpg");
 $lexus = new Car ("2013 Lexus RX 350", 44700, 2000,"images/lexus.jpg");
@@ -66,6 +70,22 @@ $max_milage = $_GET["milage"];
 
 
 $cars = array($porsche, $ford, $lexus, $mercedes);
+
+$displaycars = array();
+$i = 0;
+foreach ($cars as $car ) {
+    if ( ($car_price = $car->getPrice()) <= $max_price && $car->getMilage() <= $max_milage) {
+        $car_model = $car->getModel();
+        $car_price = $car->getPrice();
+        $car_milage = $car->getMilage();
+        $car_photo = $car->getPhoto();
+        array_push($displaycars, $car_model, $car_price, $car_milage, $car_photo);
+        $display = (string) $displaycars[$i++];
+        echo "Cars: $display";
+    }
+}
+
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -77,21 +97,23 @@ $cars = array($porsche, $ford, $lexus, $mercedes);
     <p> Maximum price is <?php echo $max_price ?> </p>
     <ul>
         <?php
-            foreach ($cars as $car) {
-                $car_model = $car->getModel();
-                $car_price = $car->getPrice();
-                $car_milage = $car->getMilage();
-                $car_photo = $car->getPhoto();
-                if ( $car_price <= $max_price && $car_milage <= $max_milage) {
-                    echo "<li> $car_model </li>";
-                    echo "<li> <img src='$car_photo'> </li>";
-                    echo "<ul>";
-                        echo "<li> $$car_price </li>";
-                        echo "<li> Miles: $car_milage </li>";
-                    echo "</ul>";
-                    echo "<p>  </p>";
-                }
+            if (empty($displaycars0)) {
+              echo "No cars meet those criteria.";
+            } else {
 
+                foreach ($displaycars as $car) {
+                    $car_model = $car->getModel();
+                    $car_price = $car->getPrice();
+                    $car_milage = $car->getMilage();
+                    $car_photo = $car->getPhoto();
+                        echo "<li> $car_model </li>";
+                        echo "<li> <img src='$car_photo'> </li>";
+                        echo "<ul>";
+                            echo "<li> $$car_price </li>";
+                            echo "<li> Miles: $car_milage </li>";
+                        echo "</ul>";
+                        echo "<p>  </p>";
+                }
             }
 
         ?>
